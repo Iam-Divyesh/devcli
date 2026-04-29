@@ -2,7 +2,7 @@ import typer
 from pathlib import Path
 from rich.console import Console
 from rich.table import Table
-from devcli.core import prompts, generator, skills as skills_mod
+from devskills.core import prompts, generator, skills as skills_mod
 
 app = typer.Typer(help="Scaffold AI production projects interactively.")
 skills_app = typer.Typer(help="Search and install Claude Code skills from skills.sh.")
@@ -40,11 +40,12 @@ def start():
 
     try:
         location = prompts.ask_location()
+        structure = prompts.ask_structure()
         features = prompts.ask_features()
         run_venv = prompts.ask_venv()
 
-        if prompts.ask_confirm(location, features):
-            generator.generate(location, features, run_venv)
+        if prompts.ask_confirm(location, structure, features):
+            generator.generate(location, structure, features, run_venv)
     except KeyboardInterrupt:
         console.print("\n  [dim]Cancelled.[/dim]\n")
         raise typer.Exit()

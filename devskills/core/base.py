@@ -1,6 +1,6 @@
 import subprocess
 from pathlib import Path
-from devcli.templates.base import make_dir, make_file
+from devskills.templates.base import make_dir, make_file
 
 
 def run_uv_init(project_path: Path) -> None:

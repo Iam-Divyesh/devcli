@@ -3,10 +3,20 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "devcli"
-version = "0.1.0"
+name = "devskills-cli"
+version = "0.1.2"
 description = "Interactive CLI to scaffold AI production projects using uv"
+readme = "README.md"
 requires-python = ">=3.10"
+license = { text = "MIT" }
+keywords = ["cli", "scaffold", "ai", "ml", "genai", "uv", "claude"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Topic :: Software Development :: Code Generators",
+]
 dependencies = [
     "typer>=0.12.0",
     "questionary>=2.0.0",
@@ -15,12 +25,16 @@ dependencies = [
 ]
 
 [project.scripts]
-dev = "devcli.main:app"
+dev = "devskills.main:app"
 
-[tool.uv.workspace]
-members = [
-    "myapp",
-    "devcli-app",
-    "sample-project",
-    "sample-folder",
-]
+[project.urls]
+Homepage = "https://github.com/Iam-Divyesh/devcli"
+Documentation = "https://iam-divyesh.github.io/devcli"
+Repository = "https://github.com/Iam-Divyesh/devcli"
+Issues = "https://github.com/Iam-Divyesh/devcli/issues"
+
+[project.optional-dependencies]
+docs = ["mkdocs-material>=9.0.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["devskills"]

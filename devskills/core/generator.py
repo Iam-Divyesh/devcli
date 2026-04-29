@@ -1,8 +1,8 @@
 from pathlib import Path
 from rich.console import Console
 from rich.panel import Panel
-from devcli.core import scaffold
-from devcli.templates import docker, claude
+from devskills.core import scaffold
+from devskills.templates import docker, claude
 
 console = Console()
 
@@ -12,7 +12,7 @@ _TEMPLATE_MAP = {
 }
 
 
-def generate(location: str, selected_features: list[str], run_venv: bool = False) -> None:
+def generate(location: str, structure: str, selected_features: list[str], run_venv: bool = False) -> None:
     if location == ".":
         project_path = Path.cwd()
         project_name = project_path.name
@@ -24,7 +24,7 @@ def generate(location: str, selected_features: list[str], run_venv: bool = False
         scaffold.run_uv_init(project_path, location)
 
     with console.status("[bold red]Creating base project structure...", spinner="dots"):
-        scaffold.create_base(project_path)
+        scaffold.create_base(project_path, structure)
 
     for feature in selected_features:
         handler = _TEMPLATE_MAP.get(feature)
@@ -36,13 +36,13 @@ def generate(location: str, selected_features: list[str], run_venv: bool = False
         with console.status("[bold red]Creating .venv (uv venv)...", spinner="dots"):
             scaffold.run_uv_venv(project_path)
 
-    _print_success(project_name, selected_features, run_venv)
+    _print_success(project_name, structure, selected_features, run_venv)
 
 
-def _print_success(project_name: str, features: list[str], run_venv: bool) -> None:
+def _print_success(project_name: str, structure: str, features: list[str], run_venv: bool) -> None:
     lines = [f"[bold red]{project_name}[/bold red] created successfully\n"]
 
-    lines.append("  [dim]Base structure[/dim]    [bold red]✓[/bold red]")
+    lines.append(f"  [dim]Base structure  [/dim] [bold red]✓[/bold red]  ({structure})")
     for f in features:
         lines.append(f"  [dim]{f.capitalize():<16}[/dim] [bold red]✓[/bold red]")
     if run_venv:

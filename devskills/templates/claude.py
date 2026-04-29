@@ -1,5 +1,5 @@
 from pathlib import Path
-from devcli.templates.helpers import make_dir, make_file
+from devskills.templates.helpers import make_dir, make_file
 
 
 def create(project_path: Path) -> None:
